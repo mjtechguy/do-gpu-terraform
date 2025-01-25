@@ -1,5 +1,5 @@
-data "digitalocean_project" "dev" {
-  name = "dev"
+data "digitalocean_project" "project" {
+  name = var.project_name
 }
 
 resource "digitalocean_ssh_key" "default" {
@@ -8,7 +8,7 @@ resource "digitalocean_ssh_key" "default" {
 }
 
 resource "digitalocean_droplet" "gpu" {
-  name   = var.droplet_name
+  name = "${var.droplet_name}-${var.size == "gpu-h100x1-80gb" ? "H100x1" : "H100x8"}"
   region = var.region
   size   = var.size
   image  = var.image
@@ -18,7 +18,7 @@ resource "digitalocean_droplet" "gpu" {
 }
 
 resource "digitalocean_project_resources" "dev" {
-  project = data.digitalocean_project.dev.id
+  project = data.digitalocean_project.project.id
   resources = [
     digitalocean_droplet.gpu.urn
   ]

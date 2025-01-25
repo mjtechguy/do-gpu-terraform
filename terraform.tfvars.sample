@@ -1,6 +1,9 @@
 # DigitalOcean API token
 do_token = "your-digitalocean-api-token"
 
+# Project name in DigitalOcean where you want you server to be deployed
+project_name = "your-project-name"
+
 # Name of the Droplet
 droplet_name = "your-droplet-name"
 

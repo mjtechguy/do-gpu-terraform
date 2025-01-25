@@ -3,6 +3,12 @@ variable "do_token" {
   type        = string
 }
 
+variable "project_name" {
+  description = "Name of the project where the Droplet will be created"
+  type        = string
+  default     = "mjproject"
+}
+
 variable "droplet_name" {
   description = "Name of the Droplet"
   type        = string

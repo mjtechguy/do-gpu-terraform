@@ -3,12 +3,7 @@ output "ssh_command" {
   value       = "ssh -i id_rsa root@${digitalocean_droplet.gpu.ipv4_address}"
 }
 
-resource "local_file" "private_key" {
-  content  = tls_private_key.ssh_key.private_key_pem
-  filename = "${path.module}/id_rsa"
-}
-
-resource "local_file" "public_key" {
-  content  = tls_private_key.ssh_key.public_key_openssh
-  filename = "${path.module}/id_rsa.pub"
+output "ollama_endpoint" {
+  description = "The endpoint to connect to Ollama (if enabled)"
+  value       = "http://${digitalocean_droplet.gpu.ipv4_address}:11434"
 }

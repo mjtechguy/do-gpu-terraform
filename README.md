@@ -6,20 +6,23 @@ This project utilizes Terraform to deploy a GPU-optimized Droplet on DigitalOcea
 
 Before you begin, ensure you have the following:
 
-- Terraform: Installed on your local machine. Follow the official installation guide if needed.
+- Terraform: Installed on your local machine.
 - DigitalOcean Account: Access to create Droplets and manage resources.
-- DigitalOcean API Token: Generate a personal access token from your DigitalOcean account. Instructions can be found here.
+- DigitalOcean API Token: Generate a personal access token from your DigitalOcean account.
 - Account approved for GPU usage: Ensure your account is approved for GPU usage on DigitalOcean. Contact support if you need to enable GPU access.
 
 ## Cloud-Init Script
 
 The `cloud-init.yaml` script is used to automate the initial configuration of the Droplet. It performs the following actions:
 
-- Updates and upgrades existing packages.
-- Installs essential packages: htop, tar, git, wget, curl, nano, unzip, and nvtop.
+- Updates and upgrades existing packages
+- Installs essential packages: htop, tar, git, wget, curl, nano, unzip, and nvtop
 - Downloads and installs btop for resource monitoring. (which inlcudes the option to monitor GPU usage)
+- Optional: Uncomment lines to install ollama and pull llama3.3 for inferencing
 
-Note: The script includes commented lines for installing ollama and pulling llama3.3. Uncomment these lines if you wish to include them in the setup.
+## Firewall Configuration
+
+The `firewall.tf` file configures the DigitalOcean firewall to restrict access to the Droplet. By default, only the IP addresses specified in the `allowed_ips` variable are allowed to access all ports on the Droplet.
 
 ## Variables
 
@@ -28,6 +31,7 @@ The following table outlines the variables in the `terraform.tfvars` file used i
 | Variable             | Description                                           | Type   | Default                  | Required |
 |----------------------|-------------------------------------------------------|--------|--------------------------|----------|
 | `do_token`           | DigitalOcean API token                                | string |                          | yes      |
+| `project_name`       | Name of the project where Droplet will be created     | string | `gpu-terraform`          | yes      |
 | `droplet_name`       | Name of the Droplet                                   | string | `gpu-droplet`            | no       |
 | `region`             | Region to deploy the Droplet                          | string | `nyc2`                   | no       |
 | `size`               | Droplet size slug                                     | string | `gpu-h100x1-80gb`        | no       |
@@ -37,7 +41,7 @@ The following table outlines the variables in the `terraform.tfvars` file used i
 | `enable_destroy_cron`| Enable or disable the creation of the delete cronjob  | bool   | `false`                  | no       |
 | `destroy_after_minutes`| Time in minutes before the Droplet is destroyed     | number | `60`                     | no       |
 
-Note: Replace the default values with your specific configurations as needed.
+Note: Replace the default values with your specific configurations as needed. Also, uncomment the lines for `enabled_destroy_cron` and `destroy_after_minutes` if you wish to enable the automatic deletion of the Droplet. This only works on Linux systems.
 
 ## Usage
 

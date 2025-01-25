@@ -12,8 +12,9 @@ packages:
   - unzip
   - nvtop
 
+#cloud-config
 write_files:
-  - path: /etc/systemd/system/ollama.service.d/override.conf
+  - path: /etc/systemd/system/ollama.service.d/custom-env.conf
     content: |
       [Service]
       Environment="OLLAMA_HOST=0.0.0.0"
@@ -21,9 +22,12 @@ write_files:
 
 runcmd:
   - wget https://github.com/aristocratos/btop/releases/download/v1.4.0/btop-x86_64-linux-musl.tbz -O /tmp/btop.tbz
-  - tar -xjvf /tmp/btop.tbz -C /tmp/btop
+  - mkdir /tmp/btop
+  - tar -xjvf /tmp/btop.tbz -C /tmp
   - cd /tmp/btop && sudo make install
-  # - curl -fsSL https://ollama.com/install.sh | sh
-  # - ollama pull llama3.3
-  # - systemctl daemon-reload
-  # - systemctl restart ollama
+  #- curl -fsSL https://ollama.com/install.sh | sh
+  #- ollama pull llama3.3
+  #- systemctl daemon-reload
+  #- systemctl enable ollama
+  #- systemctl restart ollama
+  - reboot
