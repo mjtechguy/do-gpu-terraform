@@ -35,6 +35,7 @@ The following table outlines the variables in the `terraform.tfvars` file used i
 | `ssh_key_name`       | Name for the SSH key                                  | string | `my-custom-key`          | no       |
 | `allowed_ips`        | List of IPs allowed to access all ports               | list   | `["192.0.2.1/32"]`       | no       |
 | `enable_destroy_cron`| Enable or disable the creation of the delete cronjob  | bool   | `false`                  | no       |
+| `destroy_after_minutes`| Time in minutes before the Droplet is destroyed     | number | `60`                     | no       |
 
 Note: Replace the default values with your specific configurations as needed.
 
