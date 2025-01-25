@@ -1,0 +1,35 @@
+# DigitalOcean API token
+do_token = "your-digitalocean-api-token"
+
+# Name of the Droplet
+droplet_name = "your-droplet-name"
+
+# Region to deploy the Droplet in
+region = "nyc2"
+
+# Droplet size slug (e.g., 'gpu-h100x1-80gb' for a single NVIDIA H100 GPU or 'gpu-h100x8-640gb' for 8 NVIDIA H100 GPUs)
+size = "gpu-h100x1-80gb"
+# size = "gpu-h100x8-640gb"
+
+# Droplet image slug (e.g. 'gpu-h100x1-base' for the single NVIDIA H100 GPU size or 'gpu-h100x8-base' for the 8 NVIDIA H100 GPUs size)
+image = "gpu-h100x1-base"
+# image = "gpu-h100x8-base"
+
+# Comment for the SSH key
+ssh_key_name = "my-custom-key"
+
+# Allowed IP address for all TCP port access
+allowed_ips = [
+  "192.0.2.1/32",     # Replace with your actual IP addresses
+  "198.51.100.1/32",
+  "203.0.113.5/32"
+]
+
+### ONLY SUPPORTED ON LINUX ###
+# Your will need to uncomment the following lines if you are using a Linux machine as well as the block at the end of the droplet.tf file
+# Flag to determine whether to create the cron job for automatic Droplet destruction (save that money!)
+# enable_destroy_cron = false
+
+# Time in minutes after which the Droplet will be destroyed
+# destroy_after_minutes = 60
+
